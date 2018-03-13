@@ -24,6 +24,7 @@ class KMeans:
         print(self.centroids)
 
     def clustering(self, tolerance):
+        """Perform cluster analysis about provided data"""
         bins = len(self.centroids)
         colors = []
         for i in range(0, bins):
@@ -44,6 +45,7 @@ class KMeans:
 
 
     def centerAssigne(self, color, centers):
+        """Computing distance between data and centroids"""
         min = abs(color-self.centroids[0])
         index = 0
 
