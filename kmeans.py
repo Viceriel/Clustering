@@ -59,7 +59,7 @@ class KMeans:
 
     def printImg(self):
         import numpy as np
-        img = np.ones((512,512, 3))
+        img = np.zeros((512,512, 3))
 
         for i in range(0, 511):
             for j in range(0, 511):
@@ -68,10 +68,10 @@ class KMeans:
                 else:
                     ind = self.centerAssigne(self.data[i][j], 3)
                     if ind == 0:
-                        img[i,j, 0] = 255
+                        img[i,j, 0] = 1
                     elif ind == 1 :
-                        img[i,j, 1] = 255
+                        img[i,j, 1] = 1
                     else:
-                        img[i,j, 2]= 255
+                        img[i,j, 2]= 1
 
         return img
