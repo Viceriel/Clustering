@@ -1,10 +1,13 @@
 **/__pycache__
 **/real
 **/.ropeproject
+**/.vs
+/Clustering.sln
 /Clustering.pyproj
 /PythonApplication2/PythonApplication2.v12.suo
 /PythonApplication2/PythonApplication2.sln
 /PythonApplication2/PythonApplication1/PythonApplication1.pyproj
 /PythonApplication2/PythonApplication1/PythonApplication1.py
 /Backup
-/.vs/Clustering/v15
+/tensprflow.txt
+

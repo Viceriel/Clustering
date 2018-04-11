@@ -2,7 +2,7 @@ class KMeans:
     """K-Means algorithm implementation"""
 
     def __init__(self, data, centers):
-        """Initialization function, centoids generation"""
+        """Initialization function, centroids generation"""
         self.data = data
 
         import random
@@ -23,24 +23,58 @@ class KMeans:
 
         print(self.centroids)
 
+    def avginit(self, bins):
+        self.averages = []
+        for i in range(0, bins):
+            self.averages.append(0)
+
+    def vecdiff(self,tolerance,bins):
+        sum = 0
+        for i in range(0,bins):
+            sum = sum + abs(self.averages[i]-self.centroids[i])
+        if sum > tolerance:
+            return 1
+        return 0
+
+
     def clustering(self, tolerance):
         """Perform cluster analysis about provided data"""
+        import matplotlib.pyplot as plt
         bins = len(self.centroids)
-        colors = []
-        for i in range(0, bins):
-            colors.append([])
+        self.avginit(bins)
 
-        for i in range(0, 511):
-            for j in range(0,511):
-                color = self.data[i][j]
-                if color != 0:
-                    ind = self.centerAssigne(color, bins)
-                    colors[ind].append(color)
+        while 1:            
+            colors = []
+            for i in range(0, bins):
+                colors.append([])
 
-        import numpy as np
-        for i in range(0, bins):
-            self.centroids[i] = np.mean(colors[i])
+            for i in range(0, 511):
+                for j in range(0,511):
+                    color = self.data[i][j]
+                    if color != 0:
+                        ind = self.centerAssigne(color, bins)
+                        colors[ind].append(color)
 
+            import numpy as np
+            for i in range(0, bins):
+                self.averages[i] = np.mean(colors[i])
+                print(len(colors[i]))
+            if self.vecdiff(tolerance, bins):
+                for i in range(0, bins):
+                    self.centroids[i] = self.averages[i]
+                
+                print(self.centroids)
+            else:
+                 for i in range(0, bins):
+                    self.centroids[i] = self.averages[i]
+                    return self.printImg()
+
+            #plt.figure()
+            #plt.ion()
+            #plt.imshow(self.printImg())
+            #plt.colorbar()
+            #plt.show() 
+            #plt.pause(0.001)
         return self.printImg()
 
 
@@ -59,19 +93,13 @@ class KMeans:
 
     def printImg(self):
         import numpy as np
-        img = np.zeros((512,512, 3))
+        img = np.zeros((512,512))
 
         for i in range(0, 511):
             for j in range(0, 511):
                 if self.data[i][j] == 0:
-                    img[i, j, 0] = 0
+                    img[i][j] = 0
                 else:
                     ind = self.centerAssigne(self.data[i][j], 3)
-                    if ind == 0:
-                        img[i,j, 0] = 1
-                    elif ind == 1 :
-                        img[i,j, 1] = 1
-                    else:
-                        img[i,j, 2]= 1
-
+                    img[i][j] = self.centroids[ind]
         return img

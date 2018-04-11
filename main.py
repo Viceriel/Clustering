@@ -21,9 +21,9 @@ with tf.Session() as sess:
         except tf.errors.OutOfRangeError:
             break
 
-clusters = KMeans(elem, 3)
+clusters = KMeans(elem, 5)
 img = clusters.clustering(5)
-pdb.set_trace()
+#pdb.set_trace()
 plt.imshow(img)
 plt.colorbar()
 plt.show()
