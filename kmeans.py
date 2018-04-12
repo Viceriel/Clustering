@@ -42,19 +42,16 @@ class KMeans:
         import matplotlib.pyplot as plt
         bins = len(self.centroids)
         self.avginit(bins)
-
         while 1:            
             colors = []
             for i in range(0, bins):
                 colors.append([])
-
             for i in range(0, 511):
                 for j in range(0,511):
                     color = self.data[i][j]
                     if color != 0:
                         ind = self.centerAssigne(color, bins)
                         colors[ind].append(color)
-
             import numpy as np
             for i in range(0, bins):
                 self.averages[i] = np.mean(colors[i])
@@ -62,13 +59,11 @@ class KMeans:
             if self.vecdiff(tolerance, bins):
                 for i in range(0, bins):
                     self.centroids[i] = self.averages[i]
-                
                 print(self.centroids)
             else:
                  for i in range(0, bins):
                     self.centroids[i] = self.averages[i]
                     return self.printImg()
-
             #plt.figure()
             #plt.ion()
             #plt.imshow(self.printImg())
@@ -100,6 +95,7 @@ class KMeans:
                 if self.data[i][j] == 0:
                     img[i][j] = 0
                 else:
-                    ind = self.centerAssigne(self.data[i][j], 3)
-                    img[i][j] = self.centroids[ind]
+                    ind = self.centerAssigne(self.data[i][j], len(self.centroids))
+                    #img[i][j] = self.centroids[ind]*20
+                    img[i][j] = ind * 20 + 20
         return img
