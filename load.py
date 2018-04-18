@@ -20,3 +20,13 @@ def getLabels(pattern):
         labels = pattern.eval()
 
     return labels
+
+def adjustDimension(arr):
+    length = len(arr)
+    out = []
+
+    for i in range(0, length):
+        if (arr[i] != 0):
+            out.append([0, arr[i]])
+
+    return out
